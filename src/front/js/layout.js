@@ -23,8 +23,8 @@ const Layout = () => {
                     <Navbar />
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/" element={<FormSignup />} />
-                        <Route path="/" element={<Login />} />
+                        <Route path="/FormSignup" element={<FormSignup />} />
+                        <Route path="/Login" element={<Login />} />
 						{/* <Route exact path="/FormSignup">
 							<FormSignup />
 						</Route>

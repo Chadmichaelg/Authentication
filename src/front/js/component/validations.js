@@ -22,10 +22,7 @@ export function validateSignUp(values) {
       errors.password2 = "Passwords do not match";
     }
     console.log("values", values);
-  
-    if (!values.issue1) {
-      errors.issue1 = "issue is required";
-    }
+
   
     return errors;
   }

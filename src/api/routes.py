@@ -18,12 +18,9 @@ def create_user():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
     password2 = request.json.get("password2", None)
-    issue1 = request.json.get("issue1", None)
-    issue2 = request.json.get("issue2", None)
-    issue3 = request.json.get("issue3", None)
     if email == "test" or password == "test":
         return jsonify({"msg": "Invalid email or password doesn't match"}), 401
-    user=User(name=name, email=email, password=password, issue1=issue1, issue2=issue2, issue3=issue3)
+    user=User(name=name, email=email, password=password)
     db.session.add(user)
     db.session.commit()
     return jsonify({"msg": "success, user created"}), 200

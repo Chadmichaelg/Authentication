@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 export const FormSignup = ({ submitForm }) => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
+  const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   return (
     <div

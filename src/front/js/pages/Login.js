@@ -23,11 +23,10 @@ export const Login = () => {
   };
   return (
     <div className="login-bg">
-      <img id="loginPhoto" src={sunsetImg} alt="sunset" />
       <form className="login-form" onSubmit={handleSubmit}>
-        <Link to="/">
+        {/* <Link to="/">
           <img className="login-logo" src={mindsetLogo} alt="mindset logo" />
-        </Link>
+        </Link> */}
         <div>
           <p className="mt-3">Sign In</p>
         </div>

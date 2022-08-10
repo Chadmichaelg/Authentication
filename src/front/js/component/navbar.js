@@ -46,6 +46,11 @@ return (
                     <button className="btn btn-primary">Log in</button>
                 </Link>
             </div>
+            <div className="ml-auto">
+                <Link to="/log in">
+                    <button className="btn btn-primary">Log out</button>
+                </Link>
+            </div>
         </div>
     </nav>
 );

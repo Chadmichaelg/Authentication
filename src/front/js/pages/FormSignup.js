@@ -4,11 +4,28 @@ import lotus from "../../img/lotus.png";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 
-export const signup = ({ submitForm }) => {
+export const FormSignup = ({ submitForm }) => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
-  const [values, setValues] = useState({});
+  const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
+  // const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
+
+const handleSubmit = e => {
+  e.preventDefault();
+  console.log(email, password, password2);
+  actions
+    .FormSignup(email, password, password2)
+    .then(data => navigate.push("/home"))
+    .catch(error => {
+      setErrors(error);
+      console.log("This is my error", error);
+    });
+};
+
+
   return (
     <div
       className="top pb-5"
@@ -26,27 +43,28 @@ export const signup = ({ submitForm }) => {
           }}
         >
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const _errors = validateSignUp(values);
-              if (Object.keys(_errors).length > 0) {
-                setErrors(_errors);
-                console.log("errors were found onSubmit", _errors);
-                return false;
-              } else {
-                setErrors({});
-                console.log("no errors were found call signup");
-              }
-              actions
-                .FormSignup(
-                  values.email,
-                  values.password,
-                  values.password2
-                )
-                .then(() => navigate.push("/main"))
-                .catch((error) => alert(error));
-              console.log("form submitted");
-            }}
+            onSubmit={handleSubmit}
+              // e.preventDefault();
+              // const _errors = validateSignUp(values);
+              // if (Object.keys(_errors).length > 0) {
+              //   setErrors(_errors);
+              //   console.log("errors were found onSubmit", _errors);
+              //   return false;
+              // } else {
+              //   setErrors({});
+              //   console.log("no errors were found call signup");
+              // }
+            //   actions
+            //     .FormSignup(
+            //       values.email,
+            //       values.password,
+            //       values.password2
+            //     )
+            //     .then(() => navigate.push("/main"))
+            //     .catch((error) => alert(error));
+            //   console.log("form submitted");
+            // }}
+            
             className="signup-form"
             noValidate
           >
@@ -58,10 +76,8 @@ export const signup = ({ submitForm }) => {
                 type="email"
                 name="email"
                 placeholder="Enter your email"
-                value={values.email}
-                onChange={(e) =>
-                  setValues({ ...values, email: e.target.value })
-                }
+                value={email}
+                onChange={e => setEmail(e.target.value)}
               />
               {errors.email && <p>{errors.email}</p>}
             </div>
@@ -72,10 +88,8 @@ export const signup = ({ submitForm }) => {
                 type="password"
                 name="password"
                 placeholder="Enter your password"
-                value={values.password}
-                onChange={(e) =>
-                  setValues({ ...values, password: e.target.value })
-                }
+                value={password}
+                onChange={e => setPassword(e.target.value)}
               />
               {errors.password && <p>{errors.password}</p>}
             </div>
@@ -86,10 +100,8 @@ export const signup = ({ submitForm }) => {
                 type="password"
                 name="password2"
                 placeholder="Confirm your password"
-                value={values.password2}
-                onChange={(e) =>
-                  setValues({ ...values, password2: e.target.value })
-                }
+                value={password2}
+                onChange={e => setPassword2(e.target.value)}
               />
               {errors.password2 && <p>{errors.password2}</p>}
             </div>

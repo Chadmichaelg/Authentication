@@ -14,7 +14,7 @@ export const Login = () => {
     actions
       .login(email, password)
       .then((resp) => {
-        if (resp == true) navigate.push("/home");
+        if (resp == true) navigate.push("./.");
       })
       .catch((error) => {
         setError(error);

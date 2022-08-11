@@ -12,6 +12,16 @@ from dotenv import load_dotenv
 
 api = Blueprint('api', __name__)
 
+@api.route("/token", methods=["POST"])
+def create_token():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    if email != "test" or password != "test":
+        return jsonify({"msg": "Bad email or password"}), 401
+
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token)
+
 @api.route("/FormSignup", methods=["POST"])
 def create_user():
     name = request.json.get("name", None)
@@ -36,17 +46,17 @@ def get_user():
         return jsonify(user.serialize())
     return jsonify("error user not found")
 
-@api.route("/login", methods=["POST"])
-def create_token():
-    email = request.json.get("email", None)
-    password = request.json.get("password", None)
+# @api.route("/login", methods=["POST"])
+# def create_token():
+#     email = request.json.get("email", None)
+#     password = request.json.get("password", None)
 
-    user = User.query.filter_by(email=email).first()
-    if user is None:
-        return jsonify({"Message": "Please contact your administrator"}), 401
-    if password != user.password: 
-        return jsonify({"message: password is incorrect"}), 401
-      
-    print('message succeeded')
-    access_token = create_access_token(identity=user.id)
-    return jsonify(access_token=access_token), 200
+#     user = User.query.filter_by(email=email).first()
+#     if user is None:
+#         return jsonify({"Message": "Please contact your administrator"}), 401
+#     if password != user.password: 
+#         return jsonify({"message: password is incorrect"}), 401
+
+#     print('message succeeded')
+    # access_token = create_access_token(identity=user.id)
+    # return jsonify(access_token=access_token), 200

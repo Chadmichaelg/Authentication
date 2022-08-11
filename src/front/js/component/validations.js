@@ -1,9 +1,9 @@
 export function validateSignUp(values) {
     let errors = {};
     console.log("validate info was called");
-    if (!values.name.trim()) {
-      errors.name = "Name required";
-    }
+    // if (!values.name.trim()) {
+    //   errors.name = "Name required";
+    // }
   
     if (!values.email) {
       errors.email = "Email required";

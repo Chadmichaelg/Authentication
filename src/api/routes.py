@@ -12,25 +12,32 @@ from dotenv import load_dotenv
 
 api = Blueprint('api', __name__)
 
-@api.route("/token", methods=["POST"])
+@api.route("/Login", methods=["POST"])
 def create_token():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
     if email != "test" or password != "test":
         return jsonify({"msg": "Bad email or password"}), 401
 
+    user = User.query.filter_by(email=email).first()
+    if user is None:
+        return jsonify({"Message": "Please contact your administrator"}), 401
+    if password != user.password: 
+        return jsonify({"message: password is incorrect"}), 401
+    
+    print('message succeeded')
     access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token)
+    return jsonify(access_token=access_token), 200
 
 @api.route("/FormSignup", methods=["POST"])
 def create_user():
-    name = request.json.get("name", None)
+    # name = request.json.get("name", None)
     email = request.json.get("email", None)
     password = request.json.get("password", None)
     password2 = request.json.get("password2", None)
     if email == "test" or password == "test":
         return jsonify({"msg": "Invalid email or password doesn't match"}), 401
-    user=User(name=name, email=email, password=password)
+    user=User(email=email, password=password)
     db.session.add(user)
     db.session.commit()
     return jsonify({"msg": "success, user created"}), 200
@@ -47,7 +54,7 @@ def get_user():
     return jsonify("error user not found")
 
 # @api.route("/login", methods=["POST"])
-# def create_token():
+# def login():
 #     email = request.json.get("email", None)
 #     password = request.json.get("password", None)
 

@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import { validateSignUp } from "../component/validations";
-
+import lotus from "../../img/lotus.png";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 
-export const FormSignup = ({ submitForm }) => {
+export const signup = ({ submitForm }) => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   const [values, setValues] = useState({});
@@ -13,9 +13,8 @@ export const FormSignup = ({ submitForm }) => {
     <div
       className="top pb-5"
     >
-      <h1 className="signup-text">
-        Signup NOW!!!
-      </h1>
+      <img className="signup-logo" src={lotus} />
+
 
       <div className="signup-form-container">
         <div
@@ -36,34 +35,22 @@ export const FormSignup = ({ submitForm }) => {
                 return false;
               } else {
                 setErrors({});
-                console.log("no errors were found call formSignUp");
+                console.log("no errors were found call signup");
               }
               actions
-                .formSignup(
-                  values.name,
+                .FormSignup(
                   values.email,
                   values.password,
-                  values.password2,
+                  values.password2
                 )
-                .then(() => navigate.push("/home"))
+                .then(() => navigate.push("/main"))
                 .catch((error) => alert(error));
               console.log("form submitted");
             }}
             className="signup-form"
             noValidate
           >
-            <div className="mb-3">
-              <label className="signup-label">Name</label>
-              <input
-                className="signup-input"
-                type="name"
-                name="name"
-                placeholder="Enter your name"
-                value={values.name}
-                onChange={(e) => setValues({ ...values, name: e.target.value })}
-              />
-              {errors.name && <p>{errors.name}</p>}
-            </div>
+
             <div className="mb-3">
               <label className="signup-label">Email</label>
               <input
@@ -106,6 +93,7 @@ export const FormSignup = ({ submitForm }) => {
               />
               {errors.password2 && <p>{errors.password2}</p>}
             </div>
+
             <button type="submit" className="btn btn-primary mb-3">
               Sign up
             </button>

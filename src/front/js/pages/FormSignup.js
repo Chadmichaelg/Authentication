@@ -12,12 +12,16 @@ export const FormSignup = () => {
     const navigate = useNavigate();
   // const [values, setValues] = useState({});
     const [errors, setErrors] = useState({});
+    const [messageState, setMessageState] = useState({
+      isActive: false,
+      message: "hello"
+    });
 
     const handleSubmit = e => {
     e.preventDefault();
     console.log(email, password, password2);
     actions
-        .FormSignup(email, password, password2)
+        .FormSignup(email, password, password2, setMessageState)
         .then(data => navigate.push("/home"))
         .catch(error => {
         setErrors(error);
@@ -105,6 +109,10 @@ export const FormSignup = () => {
             <button type="submit" className="btn btn-primary mb-3">
               Sign up
             </button>
+            <br />
+						{messageState.isActive && (
+								<Alert variant="danger">{messageState.message}</Alert>
+						)}
 
             <span>
               Already have an account? Login{" "}

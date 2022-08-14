@@ -31,16 +31,17 @@ def create_token():
 
 @api.route("/FormSignup", methods=["POST"])
 def create_user():
-    # name = request.json.get("name", None)
-    email = request.json.get("email", None)
-    password = request.json.get("password", None)
-    password2 = request.json.get("password2", None)
+    body = request.get_json()
+    email = body["email"]
+    password = body["password"]
+    password2 = body["password2"]
     if email == "test" or password == "test":
         return jsonify({"msg": "Invalid email or password doesn't match"}), 401
-    user=User(email=email, password=password)
+        
+    user = User(email=email, password=password, password2=password2)
     db.session.add(user)
     db.session.commit()
-    return jsonify({"msg": "success, user created"}), 200
+    return jsonify(user.serialize()), 201
 
 
 @api.route("/user", methods=["GET"])

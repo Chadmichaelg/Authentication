@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-// import { validateSignUp } from "./validations";
+import { validateSignUp } from "./validations";
 import lotus from "../../img/lotus.png";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
@@ -118,5 +118,3 @@ export const FormSignup = () => {
     </div>
   );
 };
-
-export default FormSignup;

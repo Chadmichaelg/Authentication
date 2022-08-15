@@ -31,10 +31,10 @@ def create_token():
 
 @api.route("/FormSignup", methods=["POST"])
 def create_user():
-    body = request.get_json()
-    email = body["email"]
-    password = body["password"]
-    password2 = body["password2"]
+    # body = request.json.get()
+    email = request.json.get("email", none)
+    password = request.json.get("password", none)
+    password2 = request.json.get("password2", none)
     if email == "test" or password == "test":
         return jsonify({"msg": "Invalid email or password doesn't match"}), 401
         
